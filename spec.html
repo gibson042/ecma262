@@ -27113,6 +27113,9 @@
 
       <emu-clause id="sec-number.issafeinteger">
         <h1>Number.isSafeInteger ( _number_ )</h1>
+        <emu-note>
+          <p>An integer is considered "safe" if and only if it can be exactly represented by a Number value that uniquely distinguishes it from all other integers.</p>
+        </emu-note>
         <p>When `Number.isSafeInteger` is called with one argument _number_, the following steps are taken:</p>
         <emu-alg>
           1. If ! IsInteger(_number_) is *true*, then
