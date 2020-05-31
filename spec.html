@@ -27114,7 +27114,7 @@
       <emu-clause id="sec-number.issafeinteger">
         <h1>Number.isSafeInteger ( _number_ )</h1>
         <emu-note>
-          <p>An integer _n_ is considered "<dfn id="safe-integer">safe</dfn>" if and only if the Number value for _n_ is not the Number value for any other integer.</p>
+          <p>A mathematical integer _n_ is considered "<dfn id="safe-integer">safe</dfn>" if and only if the Number value for _n_ is not the Number value for any other mathematical integer.</p>
         </emu-note>
         <p>When `Number.isSafeInteger` is called with one argument _number_, the following steps are taken:</p>
         <emu-alg>
@@ -27128,7 +27128,7 @@
         <h1>Number.MAX_SAFE_INTEGER</h1>
         <p>The value of Number.MAX_SAFE_INTEGER is 9007199254740991 (2<sup>53</sup> - 1).</p>
         <emu-note>
-          <p>Due to rounding behavior necessitated by precision limitations of IEEE 754-2008, the Number value for every integer greater than `Number.MAX_SAFE_INTEGER` is shared with at least one other integer. Such large-magnitude integers are therefore not <emu-xref href="#safe-integer">safe</emu-xref>, and are not guaranteed to be exactly representable as Number values or even to be distinguishable from each other. For example, both `9007199254740992` and `9007199254740993` evaluate to the Number value 9007199254740992.</p>
+          <p>Due to rounding behavior necessitated by precision limitations of IEEE 754-2008, the Number value for every mathematical integer greater than `Number.MAX_SAFE_INTEGER` is shared with at least one other mathematical integer. Such large-magnitude integers are therefore not <emu-xref href="#safe-integer">safe</emu-xref>, and are not guaranteed to be exactly representable as Number values or even to be distinguishable from each other. For example, both `9007199254740992` and `9007199254740993` evaluate to the Number value 9007199254740992.</p>
         </emu-note>
         <p>This property has the attributes { [[Writable]]: *false*, [[Enumerable]]: *false*, [[Configurable]]: *false* }.</p>
       </emu-clause>
@@ -27143,7 +27143,7 @@
         <h1>Number.MIN_SAFE_INTEGER</h1>
         <p>The value of Number.MIN_SAFE_INTEGER is -9007199254740991 (-(2<sup>53</sup> - 1)).</p>
         <emu-note>
-          <p>Due to rounding behavior necessitated by precision limitations of IEEE 754-2008, the Number value for every integer less than `Number.MIN_SAFE_INTEGER` is shared with at least one other integer. Such large-magnitude integers are therefore not <emu-xref href="#safe-integer">safe</emu-xref>, and are not guaranteed to be exactly representable as Number values or even to be distinguishable from each other. For example, both `-9007199254740992` and `-9007199254740993` evaluate to the Number value -9007199254740992.</p>
+          <p>Due to rounding behavior necessitated by precision limitations of IEEE 754-2008, the Number value for every mathematical integer less than `Number.MIN_SAFE_INTEGER` is shared with at least one other mathematical integer. Such large-magnitude integers are therefore not <emu-xref href="#safe-integer">safe</emu-xref>, and are not guaranteed to be exactly representable as Number values or even to be distinguishable from each other. For example, both `-9007199254740992` and `-9007199254740993` evaluate to the Number value -9007199254740992.</p>
         </emu-note>
         <p>This property has the attributes { [[Writable]]: *false*, [[Enumerable]]: *false*, [[Configurable]]: *false* }.</p>
       </emu-clause>
