@@ -14886,7 +14886,7 @@
             1. Let _elementSize_ be TypedArrayElementSize(_O_).
             1. Let _arrayByteLength_ be _O_.[[ArrayLength]] × _elementSize_.
             1. Let _byteOffsetEnd_ be _byteOffsetStart_ + _arrayByteLength_.
-          1. NOTE: A 0-length TypedArray with [[ByteOffset]] equal to _bufferByteLength_ is not considered out-of-bounds.
+          1. NOTE: A 0-length TypedArray with [[ByteOffset]] of _bufferByteLength_ is not considered out-of-bounds.
           1. If _byteOffsetStart_ > _bufferByteLength_ or _byteOffsetEnd_ > _bufferByteLength_, return *true*.
           1. Return *false*.
         </emu-alg>
@@ -42190,7 +42190,7 @@ THH:mm:ss.sss
 
   <emu-clause id="sec-set-objects">
     <h1>Set Objects</h1>
-    <p><dfn variants="Set object">Set objects</dfn> are collections of ECMAScript language values. A distinct value may only occur once as an element of a Set's collection. Distinct values are discriminated using the SameValueZero comparison algorithm.</p>
+    <p><dfn variants="Set object">Set objects</dfn> are collections of ECMAScript language values. A Set may contain each distinct value at most once. Distinct values are discriminated using the SameValueZero comparison algorithm.</p>
     <p>Set objects must be implemented using either hash tables or other mechanisms that, on average, provide access times that are sublinear on the number of elements in the collection. The data structure used in this specification is only intended to describe the required observable semantics of Set objects. It is not intended to be a viable implementation model.</p>
 
     <emu-clause id="sec-abstract-operations-for-set-objects">
@@ -44244,7 +44244,7 @@ THH:mm:ss.sss
             1. Let _byteOffsetEnd_ be _bufferByteLength_.
           1. Else,
             1. Let _byteOffsetEnd_ be _byteOffsetStart_ + _view_.[[ByteLength]].
-          1. NOTE: A 0-length DataView with [[ByteOffset]] equal to _bufferByteLength_ is not considered out-of-bounds.
+          1. NOTE: A 0-length DataView with [[ByteOffset]] of _bufferByteLength_ is not considered out-of-bounds.
           1. If _byteOffsetStart_ > _bufferByteLength_ or _byteOffsetEnd_ > _bufferByteLength_, return *true*.
           1. Return *false*.
         </emu-alg>
@@ -49306,7 +49306,7 @@ THH:mm:ss.sss
     </emu-table>
 
     <p>Shared Data Block events are introduced to candidate execution Agent Events Records by abstract operations or by methods on the Atomics object. Some operations also introduce <dfn variants="Synchronize,Synchronize event">Synchronize events</dfn>, which have no fields and exist purely to directly constrain the permitted orderings of other events. And finally, there are host-specific events. A <dfn variants="Memory events">Memory event</dfn> is either a Shared Data Block event, Synchronize event, or such a host-specific event.</p>
-    <p>Let the <dfn variants="memory ranges">memory range</dfn> of a Shared Data Block event be the Set of contiguous integers from its [[ByteIndex]] to [[ByteIndex]] + [[ElementSize]] - 1. Two events' memory ranges are equal when the events have the same [[Block]], [[ByteIndex]], and [[ElementSize]]. Two events' memory ranges are overlapping when the events have the same [[Block]], the ranges are not equal, and their intersection is non-empty. Two events' memory ranges are disjoint when the events do not have the same [[Block]] or their ranges are neither equal nor overlapping.</p>
+    <p>Let the <dfn variants="memory ranges">memory range</dfn> of a Shared Data Block event _e_ be the Set of all integers in the interval from _e_.[[ByteIndex]] (inclusive) to _e_.[[ByteIndex]] + _e_.[[ElementSize]] (exclusive). Two events' memory ranges are equal when the events have the same [[Block]], [[ByteIndex]], and [[ElementSize]]. Two events' memory ranges are overlapping when the events have the same [[Block]], the ranges are not equal, and their intersection is non-empty. Two events' memory ranges are disjoint when the events do not have the same [[Block]] or their ranges are neither equal nor overlapping.</p>
     <emu-note>
       <p>Examples of host-specific synchronizing events that should be accounted for are: sending a SharedArrayBuffer from one agent to another (e.g., by `postMessage` in a browser), starting and stopping agents, and communicating within the agent cluster via channels other than shared memory. For a particular execution _execution_, those events are provided by the host via the host-synchronizes-with strict partial order. Additionally, hosts can add host-specific synchronizing events to _execution_.[[EventList]] so as to participate in the is-agent-order-before Relation.</p>
     </emu-note>
@@ -49443,7 +49443,7 @@ THH:mm:ss.sss
       <dl class="header">
       </dl>
       <emu-alg>
-        1. Return the subtraction of SharedDataBlockEventSet(_execution_) from EventSet(_execution_).
+        1. Return a new Set containing all elements of EventSet(_execution_) that are not in SharedDataBlockEventSet(_execution_).
       </emu-alg>
     </emu-clause>
 
@@ -49762,7 +49762,7 @@ THH:mm:ss.sss
       <p>Any transformation of an agent-order slice that is valid in the absence of shared memory is valid in the presence of shared memory, with the following exceptions.</p>
       <ul>
         <li>
-          <p><em>Atomics are carved in stone</em>: Program transformations must not cause any Shared Data Block events having [[Order]] ~seq-cst~ to be removed from the is-agent-order-before Relation, nor to be reordered with respect to each other, nor to be reordered inside an agent-order slice with respect to events having [[Order]] ~unordered~.</p>
+          <p><em>Atomics are carved in stone</em>: Program transformations must not cause any Shared Data Block events whose [[Order]] is ~seq-cst~ to be removed from the is-agent-order-before Relation, nor to be reordered with respect to each other, nor to be reordered inside an agent-order slice with respect to events whose [[Order]] is ~unordered~.</p>
           <p>(In practice, the prohibition on reorderings forces a compiler to assume that every ~seq-cst~ operation is a synchronization and included in the final is-memory-order-before Relation, which it would usually have to assume anyway in the absence of inter-agent program analysis. It also forces the compiler to assume that every call where the callee's effects on the memory-order are unknown may contain ~seq-cst~ operations.)</p>
         </li>
         <li>
